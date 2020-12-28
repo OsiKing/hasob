@@ -9,15 +9,44 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="./main.js"></script>
     <link rel="stylesheet" href="./style.css">
+    <script type = "text/javascript">
+           // Form validation code.
+           function validate() {
+            if(radioValue = checkRadio(form.radiofield)) {
+          alert("You selected " + radioValue);
+         return true;
+           } 
+          else {
+         alert("Error: No value was selected!");
+          return false;
+          }
+          if(form.checkboxfield.checked) {
+          alert("The checkbox IS checked");
+          } else {
+          alert("The checkbox IS NOT checked");
+          }
+            return false;
+              if( document.myForm.email.value == "" ) {
+                 alert( "Please provide your Email!" );
+                 document.myForm.email.focus() ;
+                 return false;
+              }
+              if( document.myForm.promLang.value == "-1" ) {
+                 alert( "Please provide your favorite programming language!" );
+                 return false;
+              }
+              return( true );
+           }
+     </script>
 </head>
 <body>
 <main>    
-<form class="form-card">
+<form class="form-card" action = "/cgi-bin/test.cgi" name = "myForm" onsubmit = "return(validate());">
     <fieldset class="form-fieldset">
         <legend class="form-legend">Hasob Frontend Assessment</legend>
         <div class="form-radio form-radio-inline">
             <!-- Question 1 (radio selection) -->
-            <div class="form-radio-legend">How many states in Nigeria</div>
+            <div class="form-radio-legend" >How many states in Nigeria</div>
             <label class="form-radio-label">
                 <input name=one class="form-radio-field" type="radio" required value=20 />
                 <i class="form-radio-button"></i>
@@ -43,8 +72,8 @@
             <!-- Beginning of question 2  -->
             <div class="form-element form-select">
                 <label class="form-element-label" for="field-be1h8i-ll2hpg-q4efzm-nfjj1e-udkw5r">Select your favorite programming language</label>
-                <select id="field-be1h8i-ll2hpg-q4efzm-nfjj1e-udkw5r" class="form-element-field">
-                    <option disabled selected value="" class="form-select-placeholder"></option>
+                <select name="promLang" class="form-element-field">
+                    <option disabled selected value="-1" class="form-select-placeholder"></option>
                     <option value="Javascript">Javascript</option>
                     <option value="PHP">PHP</option>
                     <option value="Java">Java</option>
@@ -87,9 +116,9 @@
 
             <!-- Beginning of Question 4 -->
             <div class="form-element form-input">
-                <input id="field-uyzeji-352rnc-4rv3g1-bvlh88-9dewuz" class="form-element-field" placeholder=" " type="email" required/>
+                <input name="email" class="form-element-field" placeholder=" " type="email" required/>
                 <div class="form-element-bar"></div>
-                <label class="form-element-label" for="field-uyzeji-352rnc-4rv3g1-bvlh88-9dewuz">Please enter Email</label>
+                <label class="form-element-label" name="email">Please enter Email</label>
             </div>
             <!-- End of Question 4 -->
     </fieldset>
@@ -99,10 +128,33 @@
     </div>
 </form>
 </main>  
-<script>
-    function validate(){
-        valid = true;
+<script type = "text/javascript">
+       function validateEmail() {
+          var emailID = document.myForm.email.value;
+          atpos = emailID.indexOf("@");
+          dotpos = emailID.lastIndexOf(".");
+          
+          if (atpos < 1 || ( dotpos - atpos < 2 )) {
+             alert("Please enter correct email ID")
+             document.myForm.email.focus() ;
+             return false;
+          }
+          return( true );
+       }
+ </script>
+ <script>
+
+    function checkRadio(one)
+    {
+      for(var i=0; i < one.length; i++) {
+        if(one[i].checked) return one[i].value;
+      }
+      return false;
     }
-</script>
+    
+    </script>
+    <script>
+        form.checkboxfield.checked
+    </script>
 </body>
 </html>
